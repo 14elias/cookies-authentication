@@ -22,3 +22,13 @@ export const logout=async()=>{
     }
     
 }
+
+export const register=async(username,password,email)=>{
+    try{
+        const response= await axios.post(`${BASE_URL}api/register/`,{username,password,email})
+        return response.data
+    }catch (error) {
+        console.error("registration failed:", error.response ? error.response.data : error.message);
+        throw error;
+    }
+}
