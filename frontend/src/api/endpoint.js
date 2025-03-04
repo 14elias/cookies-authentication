@@ -32,3 +32,14 @@ export const register=async(username,password,email)=>{
         throw error;
     }
 }
+
+export const authenticated=async()=>{
+    try{
+        const response= await axios.get(`${BASE_URL}api/authenticated/`, {withCredentials:true})
+        return response.data
+    }catch (error) {
+        console.error("not authenticated:", error.response ? error.response.data : error.message);
+        throw error;
+    }
+    
+}
