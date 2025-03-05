@@ -1,6 +1,12 @@
 
 const Home=()=>{
-    return(<h1>Home</h1>)
+
+    return (
+        <div>
+            <h1>Home</h1>
+            <p>this is home page</p>
+        </div>
+    )
 }
 
 export default Home

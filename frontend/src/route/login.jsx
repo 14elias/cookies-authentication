@@ -1,20 +1,14 @@
 import { useState } from "react"
 import { login } from "../api/endpoint"
+import { UseAuth } from "../context/useAuth"
 import { useNavigate } from "react-router-dom"
 const Login=()=>{
     const nav=useNavigate()
     const [username,setUsername]=useState('')
     const [password,setPassword]=useState('')
-
+    const {login_user}=UseAuth()
     const handlelogin=async()=>{
-        try{
-            const response= await login(username,password)
-            if (response.success===true){ nav('/')}
-            else{alert('login failed')}
-        }catch (error) {
-            console.error("Login failed:", error.response ? error.response.data : error.message);
-            throw error;
-        }
+        login_user(username,password)
     }
     return(
     <div>

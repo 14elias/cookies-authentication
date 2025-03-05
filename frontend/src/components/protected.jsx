@@ -1,27 +1,20 @@
-import { authenticated } from "../api/endpoint";
-import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { UseAuth } from "../context/useAuth";
+import { useEffect } from "react";
 
 const Protected = ({ children }) => {
-    const [auth, setAuth] = useState(false);
+    const {isauthenticated,loading} = UseAuth();
+    const nav=useNavigate()
 
-    useEffect(() => {
-        const fetchAuth = async () => {
-            try {
-                const response = await authenticated();
-                setAuth(response.authenticated);
-            } catch (error) {
-                console.error("Authentication check failed:", error);
-                setAuth(false);
-            }
-        };
-        fetchAuth();
-    }, []);
-
-    return (
-        <div>
-            {auth ? children : <p>Credential required</p>}
-        </div>
-    );
+    if(loading){
+        return <p>loading...</p>
+    }
+    if (isauthenticated){
+        return children
+    }
+    else{
+        nav('/login') 
+    }
 };
 
 export default Protected;

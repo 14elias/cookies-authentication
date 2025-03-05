@@ -6,9 +6,7 @@ const Logout =()=>{
     const handlelogout=async()=>{
         try{
             const response= await logout()
-            console.log(response)
-            if (response.success===true) nav('/login')
-            else{return('logout failed')}
+             nav('/login')
         }catch (error) {
             console.error("Logout failed:", error.response ? error.response.data : error.message);
             throw error;
