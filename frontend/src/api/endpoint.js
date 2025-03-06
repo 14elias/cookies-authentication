@@ -41,3 +41,19 @@ export const authenticated = async () => {
         return false; 
     }
 };
+
+export const refresh_token=async()=>{
+        const response=await axios.post(`${BASE_URL}token/refresh/`,{},{withCredentials:true})
+        return response.data.success
+}
+
+const call_refresh=async(error,func)=>{
+    if (error.response && error.response.status==401 ){
+        const refreshed_token=await refresh_token()
+        if(refreshed_token){
+            const retryResponse=await func()
+            return retryResponse.data
+        }
+    }
+    return false
+}
